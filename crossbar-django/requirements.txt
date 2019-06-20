@@ -1,0 +1,12 @@
+Django
+cached-property
+django-extensions
+django_cors_headers
+django-jet
+dj-database-url
+prettyconf
+psycopg2-binary
+ulid-py
+whitenoise
+
+git+https://github.com/DroneMapp/powerlibs-django-contrib.git@0.1.6

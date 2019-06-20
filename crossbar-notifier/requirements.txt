@@ -1,0 +1,4 @@
+prettyconf
+asyncpg
+
+git+https://github.com/DroneMapp/kbaseapp@0.2.0

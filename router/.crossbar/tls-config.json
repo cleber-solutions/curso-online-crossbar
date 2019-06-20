@@ -1,0 +1,180 @@
+{
+    "version": 2,
+    "controller": {},
+    "workers": [
+        {
+            "type": "router",
+            "realms": [
+                {
+                    "name": "solutions",
+                    "roles": [
+                        {
+                            "name": "anonymous",
+                            "permissions": [
+                                {
+                                    "uri": "",
+                                    "match": "prefix",
+                                    "allow": {
+                                        "call": false,
+                                        "register": false,
+                                        "publish": false,
+                                        "subscribe": false
+                                    },
+                                    "disclose": {
+                                        "caller": true,
+                                        "publisher": true
+                                    },
+                                    "cache": true
+                                },
+                                {
+                                    "uri": "anon.",
+                                    "match": "prefix",
+                                    "allow": {
+                                        "call": true,
+                                        "register": false,
+                                        "publish": false,
+                                        "subscribe": true
+                                    },
+                                    "disclose": {
+                                        "caller": true,
+                                        "publisher": true
+                                    },
+                                    "cache": true
+                                }
+                            ]
+                        },
+                        {
+                            "name": "user",
+                            "permissions": [
+                                {
+                                    "uri": "user.",
+                                    "match": "prefix",
+                                    "allow": {
+                                        "call": true,
+                                        "register": false,
+                                        "publish": false,
+                                        "subscribe": true
+                                    },
+                                    "disclose": {
+                                        "caller": true,
+                                        "publisher": true
+                                    },
+                                    "cache": true
+                                },
+                                {
+                                    "uri": "org.",
+                                    "match": "prefix",
+                                    "allow": {
+                                        "call": true,
+                                        "register": false,
+                                        "publish": false,
+                                        "subscribe": true
+                                    },
+                                    "disclose": {
+                                        "caller": true,
+                                        "publisher": true
+                                    },
+                                    "cache": true
+                                },
+                                {
+                                    "uri": "",
+                                    "match": "prefix",
+                                    "allow": {
+                                        "call": false,
+                                        "register": false,
+                                        "publish": false,
+                                        "subscribe": false
+                                    },
+                                    "disclose": {
+                                        "caller": true,
+                                        "publisher": true
+                                    },
+                                    "cache": true
+                                }
+                            ]
+                        },
+                        {
+                            "name": "app",
+                            "permissions": [
+                                {
+                                    "uri": "",
+                                    "match": "prefix",
+                                    "allow": {
+                                        "call": true,
+                                        "register": true,
+                                        "publish": true,
+                                        "subscribe": true
+                                    },
+                                    "disclose": {
+                                        "caller": true,
+                                        "publisher": true
+                                    },
+                                    "cache": true
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "transports": [
+                {
+                    "type": "universal",
+                    "endpoint": {
+                        "type": "tcp",
+                        "port": 443,
+    "tls": {
+        "key": "/etc/letsencrypt/live/crossbar.cleber.solutions.com/privkey.pem",
+        "certificate": "/etc/letsencrypt/live/crossbar.cleber.solutions/cert.pem",
+        "chain_certificates": ["/etc/letsencrypt/live/crossbar.cleber.solutions/chain.pem"],
+        "dhparam": "/etc/letsencrypt/live/crossbar.cleber.solutions/dhparam.pem",
+        "ciphers": "ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA256:"
+    }               },
+                    "rawsocket": {
+                    },
+                    "websocket": {
+                        "ws": {
+                            "type": "websocket",
+                            "cookie": {
+                                "store": {
+                                    "type": "file",
+                                    "filename": "cookies.dat"
+                                }
+                            },
+                            "auth": {
+                                "wampcra": {
+                                    "type": "dynamic",
+                                    "authenticator": "session_authenticate"
+                                },
+                                "ticket": {
+                                    "type": "static",
+                                    "principals": {
+                                        "backend_app": {"ticket": "$ensinar$e$capacitar$", "role": "app"}
+                                    }
+                                }
+                            },
+                            "options": {
+                               "fail_by_drop": true,
+                               "open_handshake_timeout": 2500,
+                               "close_handshake_timeout": 1000,
+                               "auto_ping_interval": 10000,
+                               "auto_ping_timeout": 7000,
+                               "auto_ping_size": 4
+                            }
+                        }
+                    },
+                    "web": {
+                        "paths": {
+                            "/": {
+                                "type": "static",
+                                "directory": "/node/static",
+                                "options": {"enable_directory_listing": true}
+                            },
+                            "info": {"type": "nodeinfo"},
+                            "ws": {"type": "websocket"}
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
