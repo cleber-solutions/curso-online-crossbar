@@ -1,0 +1,44 @@
+# pyenv:
+PYENV_ROOT=~/.pyenv
+export PYENV_VERSION="3.6.8"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+# PATH:
+export PATH="$PYENV_ROOT/bin:$HOME/bin:$PATH"
+
+# pyenv again:
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# Coloque as linhas acima NO TOPO do seu .bashrc, .zshrc ou o equivalente
+# do shell que você usa.
+
+function py_install_requirements () {
+    for file in requirements/test.txt requirements/tests.txt requirements/production.txt requirements.txt;do
+        if [[ -f $file ]];then
+            pip install -U -r $file
+        fi
+    done
+}
+
+function mkve () {
+    if [[ $1 == "" ]];then
+        name=$(basename $PWD | sed 's:-:_:g')
+    else
+        name=$1
+    fi
+
+    pyenv virtualenv $name && pyenv activate $name && pip install -U pip && py_install_requirements
+}
+
+function ve () {
+    if [[ $1 == "" ]];then
+        name=$(basename $PWD | sed 's:-:_:g')
+    else
+        name=$1
+    fi
+
+    pyenv activate $name
+}
+
+alias unve='pyenv deactivate'

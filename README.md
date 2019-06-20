@@ -2,7 +2,11 @@
 
 # Componentes
 
-## crossbar-django
+## authenticator
+
+Componente responsável pela autenticação de usuários.
+
+## django-backend
 
 Uma aplicação simples usando Django. Poderia ser qualquer framework, já
 que só precisaremos criar algumas tabelas no banco de dados.
@@ -11,12 +15,12 @@ O Django é uma boa escolha porque já tem um "admin" disponível, de forma
 que não precisaremos nos preocupar com a criação de uma interface para
 o usuário.
 
-## crossbar-notifier
+## notifier
 
 Componente que ouve notificações geradas pelo Postgres e traduz em
 mensagens enviadas via roteador WAMP.
 
-## crossbar-tester
+## tester
 
 Pequena aplicação para linha de comando que servirá para nos ajudar
 a "ver" as coisas acontecendo no sistema e efetuar alguns testes.
