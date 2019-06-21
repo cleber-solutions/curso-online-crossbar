@@ -1,2 +1,2 @@
 prettyconf
-git+https://github.com/DroneMapp/kbaseapp@0.4.1
+git+https://github.com/cleber-solutions/pyWAMPBaseApp@0.1.0
