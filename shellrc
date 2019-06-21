@@ -21,9 +21,17 @@ function py_install_requirements () {
     done
 }
 
+function get_project_name {
+    dirname=$(dirname $PWD)
+    dirbasename=$(basename $dirname)
+    bname=$(basename $PWD | sed 's:-:_:g')
+    name="$dirbasename--$bname"
+    echo $name
+}
+
 function mkve () {
     if [[ $1 == "" ]];then
-        name=$(basename $PWD | sed 's:-:_:g')
+        name=$(get_project_name)
     else
         name=$1
     fi
@@ -33,7 +41,7 @@ function mkve () {
 
 function ve () {
     if [[ $1 == "" ]];then
-        name=$(basename $PWD | sed 's:-:_:g')
+        name=$(get_project_name)
     else
         name=$1
     fi
