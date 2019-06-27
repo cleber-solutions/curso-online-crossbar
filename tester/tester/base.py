@@ -1,9 +1,10 @@
+import datetime
 import json
 import re
 import sys
 
 from autobahn.wamp.types import CallOptions, SubscribeOptions
-from kbaseapp.wamp_app import WampApp
+from wampbaseapp.wamp_app import WampApp
 
 
 class Tester(WampApp):
@@ -46,6 +47,14 @@ class Tester(WampApp):
                 topic = ''
             print('Subscribing to', topic)
             await self.subscribe(on_event, topic, SubscribeOptions(match="prefix"))
+            print('Done')
+
+        elif self.method_name == 'PUB':
+            topic = self.args[0]
+            timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            message = {'datetime:': timestamp}
+            print('Publishing to', topic, '→', message)
+            self.publish(topic, message)
             print('Done')
 
         else:
