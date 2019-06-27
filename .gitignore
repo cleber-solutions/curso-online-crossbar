@@ -2,3 +2,8 @@
 __pycache__
 *.pyc
 *.pyo
+
+router/.crossbar/cookies.dat
+router/.crossbar/key.priv
+router/.crossbar/key.pub
+
